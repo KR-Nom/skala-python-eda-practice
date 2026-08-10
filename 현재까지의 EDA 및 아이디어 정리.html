@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>현재까지의 EDA 및 아이디어 정리</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #ececec; color: #171717; font-family: Arial, "Apple SD Gothic Neo", sans-serif; }
+    body { line-height: 1.42; }
+    .toolbar { position: sticky; top: 0; z-index: 10; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 10px; background: #222; color: #fff; font-size: 12px; }
+    .toolbar button { border: 0; border-radius: 4px; padding: 8px 18px; background: #fff; color: #111; font-weight: 700; cursor: pointer; }
+    .toolbar input { width: 110px; }
+    .page { width: 210mm; height: 297mm; margin: 12mm auto; padding: 16mm 17mm; overflow: hidden; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.12); page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+    h1 { margin: 0 0 8px; font-size: 29px; line-height: 1.22; }
+    h2 { margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #222; font-size: 20px; }
+    h3 { margin: 14px 0 6px; font-size: 14px; }
+    p { margin: 5px 0 9px; }
+    .author { margin: 0 0 20px; font-size: 14px; }
+    .idea { padding: 14px 16px; background: #f2f2f2; border-left: 4px solid #333; font-size: 15px; }
+    .flow { display: flex; margin: 14px 0; }
+    .step { flex: 1; padding: 9px 5px; border: 1px solid #bbb; text-align: center; font-size: 11px; font-weight: 700; }
+    .step + .step { border-left: 0; }
+    .done { background: #ededed; }
+    .next { outline: 2px solid #333; outline-offset: -2px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 9px 0; }
+    .card { border: 1px solid #bbb; padding: 9px; }
+    .value { display: block; font-size: 19px; font-weight: 700; }
+    .label, .small { color: #555; font-size: 10.5px; }
+    table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 10.5px; page-break-inside: avoid; }
+    th, td { border: 1px solid #bbb; padding: 5px 6px; text-align: left; vertical-align: top; }
+    th { background: #eee; }
+    .num { text-align: right; white-space: nowrap; }
+    ul, ol { margin: 5px 0 9px; padding-left: 19px; }
+    li { margin: 2px 0; }
+    code { padding: 1px 3px; background: #efefef; color: #111; border-radius: 2px; font-size: .94em; }
+    .note { padding: 8px 10px; background: #f5f5f5; border: 1px solid #ccc; font-size: 11px; }
+    .summary { margin-top: 10px; padding: 10px; border: 2px solid #333; font-size: 12px; font-weight: 700; }
+    .cols { columns: 2; column-gap: 18px; margin: 4px 0 8px; padding-left: 19px; font-size: 9.5px; }
+    .cols li { break-inside: avoid; margin: 1px 0; }
+    .compact { font-size: 9.5px; }
+    .data-table th { text-align: center; }
+    .data-table td:first-child { font-weight: 700; }
+    .code-list { line-height: 1.55; overflow-wrap: anywhere; }
+    .code-list code { display: inline-block; margin: 1px 1px 1px 0; }
+    .reason { line-height: 1.45; }
+    .selected-image { outline: 2px solid #555; outline-offset: 2px; }
+    img { max-width: 100%; height: auto; }
+    @media print {
+      html, body { background: #fff; }
+      .toolbar { display: none; }
+      .page { margin: 0; box-shadow: none; }
+      .selected-image { outline: none; }
+    }
+  </style>
+</head>
+<body contenteditable="true">
+  <div class="toolbar" contenteditable="false">
+    <button onclick="window.print()">PDF로 저장</button>
+    <span>본문 직접 수정 · 이미지 선택 후 크기</span>
+    <input id="imageSize" type="range" min="30" max="100" value="100" aria-label="이미지 크기">
+  </div>
+
+  <section class="page">
+    <h1>현재까지의 EDA 및 아이디어 정리</h1>
+    <p class="author">P023 장현진</p>
+    <div class="idea"><strong>아이디어</strong><br>개발자의 배경·경력·업무 환경·기술 경험만으로 AI 도구를 현재 사용하는지, 곧 사용할지, 사용할 계획이 없는지를 구분한다. AI 관련 후속 답변은 정답을 직접 드러낼 수 있으므로 모델 입력에서 제외하고, 실제 설명 가능한 특성만 사용한다.</div>
+    <div class="flow">
+      <div class="step done">1. 목표 설정<br>완료</div><div class="step done">2. EDA<br>완료</div><div class="step done">3. 전처리<br>완료</div><div class="step next">4. 모델 학습<br>다음</div><div class="step">5. 평가<br>예정</div>
+    </div>
+    <h3>문제 정의</h3>
+    <table>
+      <tr><th>항목</th><th>결정</th></tr>
+      <tr><td>타겟</td><td><code>AISelect</code>: 사용 중 / 곧 사용 / 사용 계획 없음</td></tr>
+      <tr><td>문제 유형</td><td>3개 클래스 다중 분류</td></tr>
+      <tr><td>식별자</td><td><code>ResponseId</code>는 PK로 보존, 학습 입력에서는 제외</td></tr>
+      <tr><td>평가 기준</td><td>Macro F1, 클래스별 정밀도·재현율, Balanced Accuracy, 혼동행렬</td></tr>
+    </table>
+    <h3>타겟 분포</h3>
+    <table class="data-table">
+      <tr><th>클래스</th><th>원본 응답값</th><th class="num">건수</th><th class="num">유효 타겟 비율</th></tr>
+      <tr><td>사용 중</td><td><code>Yes</code></td><td class="num">37,662</td><td class="num">61.84%</td></tr>
+      <tr><td>사용 계획 없음</td><td><code>No, and I don't plan to</code></td><td class="num">14,837</td><td class="num">24.36%</td></tr>
+      <tr><td>곧 사용</td><td><code>No, but I plan to soon</code></td><td class="num">8,408</td><td class="num">13.80%</td></tr>
+      <tr><td>합계</td><td>타겟 유효 응답</td><td class="num"><strong>60,907</strong></td><td class="num"><strong>100.00%</strong></td></tr>
+    </table>
+    <div class="summary">최다·최소 클래스 비율은 4.48:1이다. 다수 클래스만 맞혀도 정확도 61.84%이므로 정확도 단독 평가는 사용하지 않는다.</div>
+  </section>
+
+  <section class="page">
+    <h2>핵심 결과 요약</h2>
+    <h3>데이터 선별</h3>
+    <table>
+      <tr><th>단계</th><th class="num">남은 행</th><th class="num">직전 단계 제거</th><th class="num">원본 대비</th></tr>
+      <tr><td>원본</td><td class="num">65,437</td><td class="num">-</td><td class="num">100.00%</td></tr>
+      <tr><td>타겟 유효</td><td class="num">60,907</td><td class="num">4,530</td><td class="num">93.08%</td></tr>
+      <tr><td>전문 개발 업무 문항 대상</td><td class="num">29,960</td><td class="num">30,947</td><td class="num">45.78%</td></tr>
+      <tr><td>핵심 정보 완전</td><td class="num">27,182</td><td class="num">2,778</td><td class="num">41.54%</td></tr>
+    </table>
+    <h3>EDA에서 확인한 관계</h3>
+    <table>
+      <tr><th>구분</th><th>상위 변수</th><th>결과</th></tr>
+      <tr><td>범주형</td><td>국가 / 직무 / 연령 / 고용 / 학력</td><td>Cramér's V 0.151 / 0.129 / 0.121 / 0.086 / 0.084</td></tr>
+      <tr><td>수치형</td><td>코딩 경력 / 전문 개발 경력 / 업무 경력 / 보수 로그</td><td>Eta 0.172 / 0.159 / 0.132 / 0.106</td></tr>
+      <tr><td>중복</td><td>경력 변수 3개</td><td>Spearman 0.84~0.93, 전문 개발 경력 제외</td></tr>
+      <tr><td>왜도</td><td>연간 환산 보수</td><td>원본 왜도 52.92, <code>log1p</code> 변환</td></tr>
+    </table>
+    <h3>전처리 결과</h3>
+    <table class="data-table">
+      <tr><th>구분</th><th class="num">행</th><th class="num">전체 비율</th><th class="num">입력 변수</th><th class="num">입력 결측</th></tr>
+      <tr><td>학습 데이터</td><td class="num">21,745</td><td class="num">80.00%</td><td class="num">818</td><td class="num">0</td></tr>
+      <tr><td>테스트 데이터</td><td class="num">5,437</td><td class="num">20.00%</td><td class="num">818</td><td class="num">0</td></tr>
+      <tr><td>합계</td><td class="num"><strong>27,182</strong></td><td class="num"><strong>100.00%</strong></td><td class="num">동일 구조</td><td class="num"><strong>0</strong></td></tr>
+    </table>
+    <ul>
+      <li>80:20 계층화 분할, seed 42</li>
+      <li>학습·테스트 입력 결측 0건, 컬럼 구조 동일</li>
+      <li>PK 중복과 분할 간 PK 겹침 없음</li>
+      <li>중앙값·범주·다중응답 선택 기준은 학습 데이터에서만 계산</li>
+    </ul>
+    <div class="summary">인사이트: 국가·직무·연령·경력은 설명 후보지만, AI 직접 응답의 높은 예측력은 설명력보다 누수 가능성이 크므로 제거했다.</div>
+  </section>
+
+  <section class="page">
+    <h2>실제로 사용하는 컬럼</h2>
+    <p class="small">모델 입력의 원천 컬럼 53개. 범주 인코딩 후 최종 818개 수치 입력 변수로 변환된다.</p>
+    <h3>수치형 3개</h3>
+    <table>
+      <tr><th>최종 컬럼</th><th>원본</th><th>처리</th></tr>
+      <tr><td><code>CodingYears</code></td><td><code>YearsCode</code></td><td>숫자 변환</td></tr>
+      <tr><td><code>WorkExperienceYears</code></td><td><code>WorkExp</code></td><td>숫자 변환</td></tr>
+      <tr><td><code>AnnualCompLog</code></td><td><code>ConvertedCompYearly</code></td><td><code>log1p</code> 변환</td></tr>
+    </table>
+    <h3>단일 범주형 17개</h3>
+    <ul class="cols">
+      <li>개발 활동 유형 <code>MainBranch</code></li><li>연령 <code>Age</code></li><li>근무 방식 <code>RemoteWork</code></li><li>학력 <code>EdLevel</code></li><li>개발자 직무 <code>DevType</code></li><li>조직 규모 <code>OrgSize</code></li><li>구매 영향력 <code>PurchaseInfluence</code></li><li>구축·구매 성향 <code>BuildvsBuy</code></li><li>국가 <code>Country</code></li><li>Stack Overflow 방문 빈도 <code>SOVisitFreq</code></li><li>계정 여부 <code>SOAccount</code></li><li>참여 빈도 <code>SOPartFreq</code></li><li>커뮤니티 인식 <code>SOComm</code></li><li>개별기여자·관리자 <code>ICorPM</code></li><li>클라우드 환경 <code>ProfessionalCloud</code></li><li>조직의 기술 질문 방식 <code>ProfessionalQuestion</code></li><li>근무 산업 <code>Industry</code></li>
+    </ul>
+    <h3>다중응답 33개</h3>
+    <ul class="cols compact">
+      <li>고용 <code>Employment</code></li><li>코딩 활동 <code>CodingActivities</code></li><li>학습 방법 <code>LearnCode</code></li><li>온라인 학습 <code>LearnCodeOnline</code></li><li>기술 문서 <code>TechDoc</code></li><li>도구 구매 <code>BuyNewTool</code></li><li>기술 채택 <code>TechEndorse</code></li><li>사용 언어 <code>LanguageHaveWorkedWith</code></li><li>희망 언어 <code>LanguageWantToWorkWith</code></li><li>사용 DB <code>DatabaseHaveWorkedWith</code></li><li>희망 DB <code>DatabaseWantToWorkWith</code></li><li>사용 플랫폼 <code>PlatformHaveWorkedWith</code></li><li>희망 플랫폼 <code>PlatformWantToWorkWith</code></li><li>사용 웹 프레임워크 <code>WebframeHaveWorkedWith</code></li><li>희망 웹 프레임워크 <code>WebframeWantToWorkWith</code></li><li>사용 임베디드 <code>EmbeddedHaveWorkedWith</code></li><li>희망 임베디드 <code>EmbeddedWantToWorkWith</code></li><li>사용 기타 기술 <code>MiscTechHaveWorkedWith</code></li><li>희망 기타 기술 <code>MiscTechWantToWorkWith</code></li><li>사용 개발 도구 <code>ToolsTechHaveWorkedWith</code></li><li>희망 개발 도구 <code>ToolsTechWantToWorkWith</code></li><li>사용 협업 도구 <code>NEWCollabToolsHaveWorkedWith</code></li><li>희망 협업 도구 <code>NEWCollabToolsWantToWorkWith</code></li><li>개인 OS <code>OpSysPersonal use</code></li><li>업무 OS <code>OpSysProfessional use</code></li><li>사용 비동기 도구 <code>OfficeStackAsyncHaveWorkedWith</code></li><li>희망 비동기 도구 <code>OfficeStackAsyncWantToWorkWith</code></li><li>사용 동기 도구 <code>OfficeStackSyncHaveWorkedWith</code></li><li>희망 동기 도구 <code>OfficeStackSyncWantToWorkWith</code></li><li>SO 이용처 <code>NEWSOSites</code></li><li>SO 이용 방식 <code>SOHow</code></li><li>업무 불편 <code>Frustration</code></li><li>조직 개발 기술 <code>ProfessionalTech</code></li>
+    </ul>
+    <div class="note">희소 처리: 단일 범주는 학습 200건 미만을 <code>Other</code>로 통합하고, 다중응답은 학습 응답자의 1% 이상 선택지만 0/1 변수로 만든다.</div>
+  </section>
+
+  <section class="page">
+    <h2>제거한 컬럼과 제거 이유</h2>
+    <table class="compact data-table">
+      <colgroup><col style="width:15%"><col style="width:48%"><col style="width:37%"></colgroup>
+      <tr><th>분류</th><th>제거 컬럼</th><th>제거 이유</th></tr>
+      <tr><td>무정보<br>1개</td><td class="code-list"><code>Check</code></td><td class="reason">설문 확인용 값으로 응답자 특성을 설명하지 않음</td></tr>
+      <tr><td>중복 파생<br>11개</td><td class="code-list"><code>LanguageAdmired</code> <code>DatabaseAdmired</code> <code>PlatformAdmired</code> <code>WebframeAdmired</code> <code>EmbeddedAdmired</code> <code>MiscTechAdmired</code> <code>ToolsTechAdmired</code> <code>NEWCollabToolsAdmired</code> <code>OfficeStackAsyncAdmired</code> <code>OfficeStackSyncAdmired</code> <code>AISearchDevAdmired</code></td><td class="reason">기술 사용·희망 응답과 내용이 겹치는 <code>Admired</code> 파생 컬럼</td></tr>
+      <tr><td>타겟 누수<br>17개</td><td class="code-list"><strong>AI 검색·인식:</strong> <code>AISearchDevHaveWorkedWith</code> <code>AISearchDevWantToWorkWith</code> <code>AISent</code> <code>AIComplex</code><br><strong>현재·향후 사용:</strong> <code>AIToolCurrently Using</code> <code>AIToolInterested in Using</code> <code>AIToolNot interested in Using</code> <code>AINextMuch more integrated</code> <code>AINextMore integrated</code> <code>AINextNo change</code> <code>AINextLess integrated</code> <code>AINextMuch less integrated</code><br><strong>평가·조직:</strong> <code>AIThreat</code> <code>AIEthics</code> <code>AIBen</code> <code>AIAcc</code> <code>AIChallenges</code></td><td class="reason">AI 사용 후속 문항이어서 응답 또는 결측 여부가 타겟을 직접 드러냄. 이점·신뢰도·조직 도입 과제는 EDA에서만 확인</td></tr>
+      <tr><td>저가치<br>13개</td><td class="code-list"><strong>설문 정보:</strong> <code>SurveyLength</code> <code>SurveyEase</code><br><strong>원통화 보수:</strong> <code>Currency</code> <code>CompTotal</code><br><strong>만족도 세부:</strong> <code>JobSatPoints_1</code> <code>JobSatPoints_4~11</code></td><td class="reason">설문 진행 정보는 설명력이 낮고, 원통화 보수는 환산 보수와 중복. 세부 만족도 점수는 현재 목표와 직접 관련성이 낮음</td></tr>
+      <tr><td>저관련·고결측<br>15개</td><td class="code-list"><code>Knowledge_1~9</code> <code>Frequency_1~3</code> <code>TimeSearching</code> <code>TimeAnswering</code> <code>JobSat</code></td><td class="reason">타겟과 관계가 약하고 업무 문항 결측이 많아 입력 복잡도 대비 효용이 낮음</td></tr>
+      <tr><td>수치 중복<br>1개</td><td class="code-list"><code>YearsCodePro</code></td><td class="reason"><code>WorkExp</code>와 Spearman 0.93으로 중복</td></tr>
+      <tr><td>필터 후 상수<br>1개</td><td class="code-list"><code>TBranch</code></td><td class="reason"><code>Yes</code> 응답자만 선별한 뒤 값이 하나만 남음</td></tr>
+    </table>
+    <h3>컬럼은 유지하고 선택지만 제거</h3>
+    <table class="compact">
+      <tr><th>컬럼</th><th>제거한 AI 직접 선택지</th></tr>
+      <tr><td><code>LearnCodeOnline</code></td><td>AI</td></tr>
+      <tr><td><code>TechDoc</code></td><td>무료·유료 AI 검색/개발 도구</td></tr>
+      <tr><td><code>BuyNewTool</code></td><td>생성형 AI 도구에 질문</td></tr>
+      <tr><td><code>ProfessionalTech</code></td><td>AI 지원 기술 도구</td></tr>
+      <tr><td><code>ProfessionalQuestion</code></td><td>무료·유료 AI 검색</td></tr>
+      <tr><td><code>TechEndorse</code></td><td>AI 도구 통합</td></tr>
+    </table>
+    <div class="note"><strong>구분 원칙:</strong> 해당 컬럼의 비AI 정보는 살리고, 타겟을 직접 암시하는 8개 선택지만 제거했다. 이상치는 실제 고경력·고보수 응답일 수 있어 행 삭제 기준으로 사용하지 않았다.</div>
+  </section>
+
+  <section class="page">
+    <h2>EDA부터 전처리까지 수행 과정</h2>
+    <h3>1. 원본 점검</h3>
+    <ul><li>65,437행 × 114열, 전체 중복 0건, <code>ResponseId</code> 중복 0건</li><li>타겟 유효값 60,907건과 3개 클래스 불균형 확인</li></ul>
+    <h3>2. 관계 분석</h3>
+    <ul><li>범주형: 교차표·카이제곱·Cramér's V</li><li>수치형: 그룹 통계·Eta·t-test, 경력 변수 Spearman 상관, 보수 왜도 확인</li><li>표본이 커 p-value가 작아질 수 있으므로 효과크기 중심으로 판단</li></ul>
+    <h3>3. 분석 대상 선별</h3>
+    <ul><li><code>AISelect</code> 유효 + <code>TBranch = Yes</code> + 핵심 10개 정보 완전 조건 적용</li><li>핵심 10개: 연령, 고용, 학력, 국가, 직무, 코딩 경력, 업무 경력, 산업, 조직 개발 기술, 클라우드 환경</li><li>연간 보수는 필수 조건에 넣으면 15,294건만 남아 필수값에서는 제외</li></ul>
+    <h3>4. 변환 및 인코딩</h3>
+    <ul><li>수치 결측은 학습 중앙값 대체와 결측 표시, 보수는 <code>log1p</code></li><li>단일 범주 17개 → 146개, 다중응답 33개 → 685개 선택지·결측 변수</li><li>인코딩 후 값이 하나뿐인 변수 19개 추가 제거</li></ul>
+    <h3>5. 분할 및 검증</h3>
+    <table>
+      <tr><th>산출물</th><th>행</th><th>입력 변수</th><th>결측</th></tr>
+      <tr><td><code>processed/ai_train.csv.gz</code></td><td class="num">21,745</td><td class="num">818</td><td class="num">0</td></tr>
+      <tr><td><code>processed/ai_test.csv.gz</code></td><td class="num">5,437</td><td class="num">818</td><td class="num">0</td></tr>
+    </table>
+    <div class="summary">현재 상태: 목표 설정 → EDA → 전처리 완료. 다음은 동일한 데이터에서 기준 모델·선형 모델·비선형 모델을 학습하고 Macro F1과 클래스별 재현율로 비교한다.</div>
+  </section>
+
+  <script contenteditable="false">
+    let selectedImage = null;
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll('img').forEach((img) => img.classList.remove('selected-image'));
+      if (event.target.tagName === 'IMG') {
+        selectedImage = event.target;
+        selectedImage.classList.add('selected-image');
+        document.getElementById('imageSize').value = parseInt(selectedImage.style.width, 10) || 100;
+      } else if (!event.target.closest('.toolbar')) {
+        selectedImage = null;
+      }
+    });
+    document.getElementById('imageSize').addEventListener('input', (event) => {
+      if (selectedImage) selectedImage.style.width = event.target.value + '%';
+    });
+    document.addEventListener('paste', (event) => {
+      const item = [...event.clipboardData.items].find((entry) => entry.type.startsWith('image/'));
+      if (!item) return;
+      event.preventDefault();
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = document.createElement('img');
+        img.src = reader.result;
+        img.alt = '붙여넣은 이미지';
+        const range = window.getSelection().rangeCount ? window.getSelection().getRangeAt(0) : null;
+        if (range) { range.deleteContents(); range.insertNode(img); } else { document.body.appendChild(img); }
+      };
+      reader.readAsDataURL(item.getAsFile());
+    });
+  </script>
+</body>
+</html>

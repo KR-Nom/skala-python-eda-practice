@@ -1,0 +1,272 @@
+{
+  "source": "results.csv",
+  "rows": 65437,
+  "columns": 114,
+  "duplicate_response_ids": 0,
+  "missing_top20": {
+    "AINextMuch less integrated": 64289,
+    "AINextLess integrated": 63082,
+    "AINextNo change": 52939,
+    "AINextMuch more integrated": 51999,
+    "EmbeddedAdmired": 48704,
+    "EmbeddedWantToWorkWith": 47837,
+    "EmbeddedHaveWorkedWith": 43223,
+    "ConvertedCompYearly": 42002,
+    "AIToolNot interested in Using": 41023,
+    "AINextMore integrated": 41009,
+    "Knowledge_9": 37802,
+    "Frequency_3": 37727,
+    "Knowledge_8": 37679,
+    "ProfessionalTech": 37673,
+    "Knowledge_7": 37659,
+    "Knowledge_6": 37573,
+    "Knowledge_5": 37557,
+    "Knowledge_2": 37416,
+    "Knowledge_4": 37407,
+    "Knowledge_3": 37342
+  },
+  "top_categories": {
+    "Age": [
+      [
+        "25-34 years old",
+        23911
+      ],
+      [
+        "35-44 years old",
+        14942
+      ],
+      [
+        "18-24 years old",
+        14098
+      ],
+      [
+        "45-54 years old",
+        6249
+      ],
+      [
+        "55-64 years old",
+        2575
+      ],
+      [
+        "Under 18 years old",
+        2568
+      ],
+      [
+        "65 years or older",
+        772
+      ],
+      [
+        "Prefer not to say",
+        322
+      ]
+    ],
+    "Employment": [
+      [
+        "Employed, full-time",
+        39041
+      ],
+      [
+        "Independent contractor, freelancer, or self-employed",
+        4846
+      ],
+      [
+        "Student, full-time",
+        4709
+      ],
+      [
+        "Employed, full-time;Independent contractor, freelancer, or self-employed",
+        3557
+      ],
+      [
+        "Not employed, but looking for work",
+        2341
+      ],
+      [
+        "Employed, part-time",
+        1266
+      ],
+      [
+        "Student, full-time;Employed, part-time",
+        1115
+      ],
+      [
+        "Employed, full-time;Student, full-time",
+        897
+      ],
+      [
+        "Employed, full-time;Student, part-time",
+        839
+      ],
+      [
+        "Student, full-time;Not employed, but looking for work",
+        686
+      ],
+      [
+        "Not employed, and not looking for work",
+        633
+      ],
+      [
+        "Student, part-time;Employed, part-time",
+        558
+      ],
+      [
+        "I prefer not to say",
+        546
+      ],
+      [
+        "Retired",
+        525
+      ],
+      [
+        "Student, part-time",
+        494
+      ]
+    ],
+    "RemoteWork": [
+      [
+        "Hybrid (some remote, some in-person)",
+        23015
+      ],
+      [
+        "Remote",
+        20831
+      ],
+      [
+        "In-person",
+        10960
+      ]
+    ],
+    "Country": [
+      [
+        "United States of America",
+        11095
+      ],
+      [
+        "Germany",
+        4947
+      ],
+      [
+        "India",
+        4231
+      ],
+      [
+        "United Kingdom of Great Britain and Northern Ireland",
+        3224
+      ],
+      [
+        "Ukraine",
+        2672
+      ],
+      [
+        "France",
+        2110
+      ],
+      [
+        "Canada",
+        2104
+      ],
+      [
+        "Poland",
+        1534
+      ],
+      [
+        "Netherlands",
+        1449
+      ],
+      [
+        "Brazil",
+        1375
+      ],
+      [
+        "Italy",
+        1341
+      ],
+      [
+        "Australia",
+        1260
+      ],
+      [
+        "Spain",
+        1123
+      ],
+      [
+        "Sweden",
+        1016
+      ],
+      [
+        "Russian Federation",
+        925
+      ]
+    ],
+    "AISelect": [
+      [
+        "Yes",
+        37662
+      ],
+      [
+        "No, and I don't plan to",
+        14837
+      ],
+      [
+        "No, but I plan to soon",
+        8408
+      ]
+    ],
+    "AISent": [
+      [
+        "Favorable",
+        22167
+      ],
+      [
+        "Very favorable",
+        10848
+      ],
+      [
+        "Indifferent",
+        8564
+      ],
+      [
+        "Unfavorable",
+        2381
+      ],
+      [
+        "Unsure",
+        1357
+      ],
+      [
+        "Very unfavorable",
+        556
+      ]
+    ]
+  },
+  "numeric_summary": {
+    "CompTotal": {
+      "n": 33740,
+      "mean": 2.963841138114989e+145,
+      "std": 5.4441171351422986e+147,
+      "min": 0.0,
+      "max": 1.0000000000000002e+150
+    },
+    "ConvertedCompYearly": {
+      "n": 23435,
+      "mean": 86155.28726264118,
+      "std": 186756.97308629777,
+      "min": 1.0,
+      "max": 16256603.0
+    },
+    "WorkExp": {
+      "n": 29658,
+      "mean": 11.466956639018132,
+      "std": 9.168708536230746,
+      "min": 0.0,
+      "max": 50.0
+    },
+    "JobSat": {
+      "n": 29126,
+      "mean": 6.935040856966248,
+      "std": 2.088259412801649,
+      "min": 0.0,
+      "max": 10.0
+    }
+  }
+}
